@@ -1,0 +1,153 @@
+/* src/pages/HomePage.module.css */
+
+/* "Сітка" (Grid) - для "Усіх Відео" */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* === ОБГОРТКА ДЛЯ КАРУСЕЛІ (НОВЕ) === */
+.carouselContainer {
+  position: relative; /* Це потрібно, щоб позиціонувати кнопки */
+}
+
+/* Сама карусель */
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 20px;
+  padding: 10px 0 20px 0;
+  scrollbar-width: none; /* Firefox */
+  
+  /* Дуже важливо! Це робить прокрутку плавною на iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+.carousel > * {
+  flex-shrink: 0;
+}
+
+/* === КНОПКИ КАРУСЕЛІ (ЗМІНЕНО) === */
+.scrollButton {
+  display: none; /* 1. СХОВАНО ЗА ЗАМОВЧУВАННЯМ (для мобільних) */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Центрує по вертикалі */
+  z-index: 10;
+  
+  /* Стиль (ОНОВЛЕНО НА ЖОВТИЙ) */
+  background-color: #ffc107; /* Жовтий фон */
+  color: #333;             /* Темний колір для стрілки */
+  border: 1px solid #e6ac00; /* Рамка в тон */
+  
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: all 0.2s;
+}
+
+.scrollButton:hover {
+  background-color: #ffca2c; /* Світліший жовтий при наведенні */
+  transform: translateY(-50%) scale(1.1); /* Ефект при наведенні */
+}
+
+.scrollButtonLeft {
+  left: 10px;
+}
+
+.scrollButtonRight {
+  right: 10px;
+}
+
+/* === МАГІЯ: ПОКАЗУЄМО КНОПКИ ТІЛЬКИ НА ПК === */
+@media (min-width: 1024px) {
+  .scrollButton {
+    display: block; /* 2. ПОКАЗУЄМО НА ЕКРАНАХ БІЛЬШЕ 1024px */
+  }
+
+  /* На ПК також можна зробити скролбар кращим */
+  .carousel::-webkit-scrollbar {
+    display: block;
+    height: 8px;
+  }
+  .carousel::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 10px;
+  }
+}
+/* ======================================= */
+
+/* === Картка Відео (змінився 1 рядок) === */
+.videoCard {
+  text-decoration: none;
+  color: inherit;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Ми перенесли 'width: 280px' з .videoCard сюди: */
+.carousel .videoCard {
+  width: 280px; /* Ширина картки в каруселі */
+}
+
+.videoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+.videoCard img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+.videoInfo { padding: 15px; }
+.videoInfo h4 { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+
+/* === Картка Категорії === */
+.categoryCard {
+  text-decoration: none;
+  color: inherit;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+  width: 100px;
+}
+.categoryCard:hover { transform: scale(1.05); }
+.categoryCard img { width: 60px; height: 60px; object-fit: cover; margin-bottom: 10px; }
+  
+/* === Заголовки === */
+.sectionTitle {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* === Правило з минулого кроку === */
+.categoryCarouselContainer .scrollButton {
+  top: 40%; /* Піднімаємо стрілки (було 50%) */
+}
+
+/* === ДОДАЙТЕ ЦІ ДВА ПРАВИЛА === */
+.categoryCarouselContainer .scrollButtonLeft {
+  left: -15px; /* Висуваємо кнопку ліворуч (замість 10px) */
+}
+
+.categoryCarouselContainer .scrollButtonRight {
+  right: -15px; /* Висуваємо кнопку праворуч (замість 10px) */
+}
